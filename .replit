@@ -4,7 +4,7 @@ entrypoint = "index.html"
 [nix]
 channel = "stable-23_11"
 
-[ports]
+[[ports]]
 localPort = 3000
 externalPort = 80
 
