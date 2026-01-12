@@ -1,33 +1,29 @@
 
-import { GoogleGenAI, GenerateContentResponse, Type } from "@google/genai";
+// Mock implementation - GoogleGenAI imports removed
 
-const getAIClient = () => {
-  return new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
-};
+
 
 export const chatWithGemini = async (messages: { role: string; parts: { text: string }[] }[]): Promise<string> => {
-  const ai = getAIClient();
-  const response = await ai.models.generateContent({
-    model: 'gemini-3-pro-preview',
-    contents: messages.map(m => ({ role: m.role, parts: m.parts })),
-    config: {
-      systemInstruction: "You are HammerBot, a helpful assistant for HammerMatch, a marketplace for craftsmen. You help users describe their home repair needs, give general advice on DIY vs hiring a professional, and explain how the platform works. Be professional, friendly, and concise.",
-      temperature: 0.7,
-    },
-  });
-  return response.text || "I'm sorry, I couldn't process that request.";
+  // Simulate a delay
+  await new Promise(resolve => setTimeout(resolve, 800));
+
+  const lastMessage = messages[messages.length - 1]?.parts[0]?.text.toLowerCase() || "";
+
+  if (lastMessage.includes("plumber") || lastMessage.includes("leak")) {
+    return "It sounds like you have a plumbing issue. For leaks, I recommend shutting off your main water valve and hiring a professional plumber immediately. On HammerMatch, you can find certified plumbers in your area.";
+  }
+
+  if (lastMessage.includes("price") || lastMessage.includes("cost")) {
+    return "Project costs vary based on scope and materials. HammerMatch lets you receive multiple quotes from craftsmen so you can compare prices and choose the best fit for your budget.";
+  }
+
+  return "I'm HammerBot! I'm currently running in demo mode. I can help you find craftsmen, give DIY advice, or explain how HammerMatch works. How can I assist you today?";
 };
 
 export const analyzeJobImage = async (base64Image: string, mimeType: string): Promise<string> => {
-  const ai = getAIClient();
-  const response = await ai.models.generateContent({
-    model: 'gemini-3-pro-preview',
-    contents: {
-      parts: [
-        { inlineData: { data: base64Image, mimeType } },
-        { text: "Analyze this image and describe what kind of craftsmanship work is needed. Identify the likely issue, suggest which professional category (e.g., plumber, electrician, painter) should handle it, and give a brief 2-3 sentence summary of the work involved." }
-      ]
-    }
-  });
-  return response.text || "I couldn't analyze the image. Please try a clearer photo.";
+  // Simulate a delay
+  await new Promise(resolve => setTimeout(resolve, 1500));
+
+  return "AI Analysis (Demo): This image appears to show a household repair task. Based on typical patterns, a specialized craftsman like a plumber or electrician may be required. We recommend posting this job on HammerMatch to get expert evaluations from local professionals.";
 };
+
