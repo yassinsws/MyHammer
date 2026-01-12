@@ -5,6 +5,6 @@ entrypoint = "index.html"
 channel = "stable-23_11"
 
 [ports]
-[ports.http]
 localPort = 3000
 externalPort = 80
+
